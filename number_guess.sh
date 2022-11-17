@@ -13,7 +13,9 @@ then
   echo -e "\nWelcome, $UN! It looks like this is your first time here."
   INUN=$($PSQL "insert into users(username) values('$UN')")
 else
-  echo -e "\nWelcome back, $UN! You have played <games_played> games, and your best game took <best_game> guesses."
+  PBG=$($PSQL "select best_game from users where username='$UN'")
+  NG=$($PSQL "select games_played from users where username='$UN'")
+  echo -e "\nWelcome back, $UN! You have played $NG games, and your best game took $PBG guesses."
 fi  
 
 RNG=$(( 1 + $RANDOM % 1000 ))
@@ -48,4 +50,14 @@ do
   fi
 done
 
-#if [[ $NUM_GUESS -lt  ]]
+NNG=$(( $NG + 1 ))
+
+if [[ $NUM_GUESS -lt $PBG ]]
+then
+  UPDATE_N_GT_BS=$($PSQL "update users set games_played=$NNG, best_game=$NUM_GUESS where username='$UN'")
+elif [[ -z $PBG ]]
+then  
+  UPDATE_N_GT_BS=$($PSQL "update users set games_played=$NNG, best_game=$NUM_GUESS where username='$UN'")  
+else
+  UPDATE_N_GT=$($PSQL "update users set games_played=$NNG where username='$UN'")
+fi

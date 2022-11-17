@@ -51,7 +51,7 @@ CREATE TABLE public.users (
     user_id integer NOT NULL,
     username character varying(25) NOT NULL,
     games_played integer,
-    best_game integer
+    best_game integer DEFAULT 99999
 );
 
 
@@ -98,13 +98,33 @@ INSERT INTO public.users VALUES (5, 'user_1668702043355', NULL, NULL);
 INSERT INTO public.users VALUES (6, 'user_1668702043354', NULL, NULL);
 INSERT INTO public.users VALUES (7, 'user_1668702154488', NULL, NULL);
 INSERT INTO public.users VALUES (8, 'user_1668702154487', NULL, NULL);
+INSERT INTO public.users VALUES (9, 'user_1668702598038', NULL, NULL);
+INSERT INTO public.users VALUES (10, 'user_1668702598037', NULL, NULL);
+INSERT INTO public.users VALUES (11, 'Pat', NULL, NULL);
+INSERT INTO public.users VALUES (13, 'user_1668703380521', NULL, NULL);
+INSERT INTO public.users VALUES (14, 'user_1668703380520', NULL, NULL);
+INSERT INTO public.users VALUES (15, 'user_1668703433068', NULL, NULL);
+INSERT INTO public.users VALUES (16, 'user_1668703433067', NULL, NULL);
+INSERT INTO public.users VALUES (17, 'p', NULL, NULL);
+INSERT INTO public.users VALUES (18, 'f', NULL, NULL);
+INSERT INTO public.users VALUES (19, 't', NULL, NULL);
+INSERT INTO public.users VALUES (20, 'q', NULL, NULL);
+INSERT INTO public.users VALUES (21, 'user_1668703956389', NULL, NULL);
+INSERT INTO public.users VALUES (22, 'user_1668703956388', NULL, NULL);
+INSERT INTO public.users VALUES (23, 'user_1668704966640', NULL, 99999);
+INSERT INTO public.users VALUES (24, 'user_1668704966639', NULL, 99999);
+INSERT INTO public.users VALUES (25, 'user_1668705144767', NULL, 99999);
+INSERT INTO public.users VALUES (26, 'user_1668705144766', NULL, 99999);
+INSERT INTO public.users VALUES (12, 'pat', 1, 10);
+INSERT INTO public.users VALUES (29, 'user_1668705931616', 2, 590);
+INSERT INTO public.users VALUES (28, 'user_1668705931617', 5, 69);
 
 
 --
 -- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.users_user_id_seq', 8, true);
+SELECT pg_catalog.setval('public.users_user_id_seq', 29, true);
 
 
 --
