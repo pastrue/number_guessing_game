@@ -4,11 +4,6 @@ PSQL="psql --username=freecodecamp --dbname=number_guess -t --no-align -c"
 echo -e "\nEnter your username:"
 read UN
 
-RNG=$(( 1 + $RANDOM % 1000 ))
-#Random number generated
-NUM_GUESS=0
-#Number of guesses variable
-
 QUN=$($PSQL "select username from users where username='$UN'")
 #Username queried from database
 
@@ -21,28 +16,36 @@ else
   echo -e "\nWelcome back, $UN! You have played <games_played> games, and your best game took <best_game> guesses."
 fi  
 
-#Function for the game
-GAME() {
-echo -e "\nGuess the secret number between 1 and 1000:"
-read UG
-NUM_GUESS =$(( $NUM_GUESS + 1 ))
+RNG=$(( 1 + $RANDOM % 1000 ))
+#Random number generated
+NUM_GUESS=0
+#Number of guesses variable
 
-if [[ ! $UG =~ ^[0-9]+$ ]]
-then
-  GAME "That is not an integer, guess again:"
-else
-  if [[ $UG -eq $RNG ]]
+echo "Guess the secret number between 1 and 1000:"
+
+#While loop for game
+while read UG
+do
+  NUM_GUESS=$(( $NUM_GUESS + 1 ))
+
+  if [[ ! $UG =~ ^[0-9]+$ ]]
   then
-    echo -e "\nYou guessed it in $NUM_GUESS tries. The secret number was $RNG. Nice job!"
+    echo "That is not an integer, guess again:"
   else
-    if [[ $UG -gt $RNG ]]
+    if [[ $UG -eq $RNG ]]
     then
-      GAME "It's higher than that, guess again:"
+      echo -e "\nYou guessed it in $NUM_GUESS tries. The secret number was $RNG. Nice job!"
+      break;
     else
-      GAME "It's lower than that, guess again:"
+      if [[ $UG -gt $RNG ]]
+      then
+        echo -n "It's lower than that, guess again:"
+      elif [[ $UG -lt $RNG ]]
+      then
+        echo -n "It's higher than that, guess again:"
+      fi
     fi
   fi
-fi
-}
+done
 
-GAME
+#if [[ $NUM_GUESS -lt  ]]
